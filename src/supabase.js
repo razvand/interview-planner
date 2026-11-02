@@ -1,7 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
+import config from './config.js';
 
-const url = import.meta.env.VITE_SUPABASE_URL;
-const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const url = import.meta.env.VITE_SUPABASE_URL || config.supabaseUrl;
+const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || config.supabaseKey;
 
 export const configured = Boolean(url && anonKey);
 
@@ -11,12 +12,12 @@ export const supabase = configured
     })
   : null;
 
-export const providers = (import.meta.env.VITE_AUTH_PROVIDERS || 'azure,google,email')
+export const providers = (import.meta.env.VITE_AUTH_PROVIDERS || config.authProviders)
   .split(',')
   .map((p) => p.trim().toLowerCase())
   .filter(Boolean);
 
-export const azureLabel = import.meta.env.VITE_AZURE_LABEL || 'UPB Microsoft account';
+export const azureLabel = import.meta.env.VITE_AZURE_LABEL || config.azureLabel;
 
 // Where OAuth / magic links return: the app root, without the hash route.
 export const redirectTo = () => window.location.origin + window.location.pathname;

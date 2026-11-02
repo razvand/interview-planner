@@ -57,8 +57,8 @@ Teachers and invited students are matched **by the email they sign in with**, so
 
 ### 3. GitHub Pages
 
-1. **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-2. **Settings → Secrets and variables → Actions → Variables**, add:
+1. **Settings → Pages → Build and deployment → Source: Deploy from a branch**, branch `gh-pages`, folder `/ (root)`. The workflow builds the app and publishes it to that branch.
+2. Set the Supabase URL and publishable key in [`src/config.js`](src/config.js), or override them with **Settings → Secrets and variables → Actions → Variables**:
 
    | Variable | Value |
    | --- | --- |
