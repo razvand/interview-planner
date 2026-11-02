@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { supabase, providers, azureLabel, redirectTo, errorMessage } from '../supabase.js';
+import { useState, useEffect } from 'react';
+import { supabase, providers as configured, enabledProviders, azureLabel, redirectTo, errorMessage } from '../supabase.js';
 import { Alert } from '../components/ui.jsx';
 
 export default function Login() {
@@ -7,6 +7,8 @@ export default function Login() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const [providers, setProviders] = useState(configured);
+  useEffect(() => { enabledProviders().then(setProviders); }, []);
 
   const oauth = async (provider) => {
     setError('');

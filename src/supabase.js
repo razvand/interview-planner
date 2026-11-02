@@ -26,3 +26,14 @@ export function errorMessage(err) {
   if (!err) return '';
   return err.message || err.error_description || String(err);
 }
+
+// Providers actually enabled in the Supabase project (so disabled buttons are hidden).
+export async function enabledProviders() {
+  try {
+    const res = await fetch(`${url}/auth/v1/settings`, { headers: { apikey: anonKey } });
+    const ext = (await res.json()).external || {};
+    return providers.filter((p) => ext[p]);
+  } catch {
+    return providers;
+  }
+}
